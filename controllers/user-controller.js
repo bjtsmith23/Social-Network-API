@@ -18,6 +18,9 @@ const userController = {
   getSingleUser(req, res) {
     // TODO: use .populate() to populate docs for friends and thoughts arrays
     User.findOne({ _id: req.params.userId })
+    // select _v what does it do 
+    .select("-__v")
+    .populate("friends, thoughts")
     .then((user) =>
       !user
         ? res.status(404).json({ message: 'No user with that ID' })

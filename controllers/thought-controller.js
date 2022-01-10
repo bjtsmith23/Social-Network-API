@@ -71,13 +71,33 @@ const thoughtController = {
   // add a reaction to a thought
   addReaction(req, res) {
     //  TODO: add reaction to thought's reaction array
-
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $addToSet: { reactions: req.body } },
+      { runValidators: true, new: true }
+    )
+      .then((reaction) =>
+        !reaction 
+          ? res.status(404).json({ message: 'No reaction  with this id!' })
+          : res.json({ message: `Reaction has been added`})
+      )
+      .catch((err) => res.status(500).json(err));
   },
 
   // remove reaction from a thought
   removeReaction(req, res) {
     // TODO: remove reaction from thoughts
-
+    Thought.findOneAndUpdate(
+      { _id: req.params.reactionId },
+      { $pull: { reactions: { reactionId: req.params.reactionId } } },
+      { runValidators: true, new: true }
+    )
+      .then((reaction) =>
+        !reaction
+          ? res.status(404).json({ message: 'No reaction with this id!' })
+          : res.json({ message: `Reaction has been deleted!`})
+      )
+      .catch((err) => res.status(500).json(err));
   },
 };
 
