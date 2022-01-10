@@ -4,34 +4,50 @@ const thoughtController = {
   // get all thoughts
   getThoughts(req, res) {
     // TODO: Your code here
-
+    Thought.find()
+    .then((dbThoughtData) => res.json(dbThoughtData))
+    .catch((error) => res.status(500).json(error));
   },
   
   // get single thought by id
   getSingleThought(req, res) {
     // TODO: Your code
+    Thought.findOne({_id: req.params.thoughtId})
+    .then((dbThoughtData) => res.json(dbThoughtData))
 
   },
 
   // create a thought
   createThought(req, res) {
     // TODO: create a thought and add the thought to user's thoughts array
-
+    Thought.create(req.body)
+    .then((dbThoughtData) => res.json(dbThoughtData))
+    .catch((err) => res.status(500).json(err));
   },
 
   // update thought
   updateThought(req, res) {
     // TODO: update thought
-
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $set: req.body },
+      { runValidators: true, new: true }
+    )
+      .then((thought) =>
+        !thought
+          ? res.status(404).json({ message: 'No thought with this id!' })
+          : res.json(thought)
+      )
+      .catch((err) => res.status(500).json(err));   
   },
 
   // delete thought
   deleteThought(req, res) {
-    Thought.findOneAndRemove({ _id: req.params.thoughtId })
+      Thought.findOneAndRemove({ _id: req.params.thoughtId })
       .then((dbThoughtData) => {
         if (!dbThoughtData) {
           return res.status(404).json({ message: 'No thought with this id!' });
-        }
+      }
 
         // remove thought id from user's `thoughts` field
         return User.findOneAndUpdate(
