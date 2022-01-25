@@ -2,12 +2,12 @@ const { Schema, model } = require('mongoose');
 
 const userSchema = new Schema(
   {
-    // TODO: create username field
+ 
     username: {
       type: String,
       required: true
     },
-    // TODO: create email field
+   
     email: {
       type: String,
       required: true

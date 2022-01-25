@@ -16,10 +16,10 @@ const userController = {
 
   // get single user by id
   getSingleUser(req, res) {
-    // TODO: use .populate() to populate docs for friends and thoughts arrays
+    
     console.log("getSingleUser")
     User.findOne({ _id: req.params.userId })
-    // select _v what does it do ??
+ 
     .select("-__v")
     .populate("friends")
     .populate("thoughts")
@@ -67,7 +67,7 @@ const userController = {
       });
   },
 
-  // delete user (BONUS: and delete associated thoughts)
+
   deleteUser(req, res) {
     User.findOneAndDelete({ _id: req.params.userId })
       .then((dbUserData) => {
@@ -75,7 +75,7 @@ const userController = {
           return res.status(404).json({ message: 'No user with this id!' });
         }
 
-        // BONUS: get ids of user's `thoughts` and delete them all
+        
         return Thought.deleteMany({ _id: { $in: dbUserData.thoughts } });
       })
       .then(() => {

@@ -4,29 +4,29 @@ const dateFormat = require('../utils/dateFormat');
 
 const thoughtSchema = new Schema(
   {
-    // TODO: add thoughtText
+   
     thoughtText: {
       type: String,
       required: true,
       maxlength: 280,
     },
 
-    // TODO: add createdAt
+    
     createdAt: {
       type: Date,
       default: Date.now,
       get: timestamp => dateFormat(timestamp)
     },
-    // TODO: add username
+   
     username: {
       type: String,
       required: true
     },
-    // TODO: add reactions
+  
     reactions: [reactionSchema]
   },
   {
-    // TODO: Add toJSON option
+    
     toJSON: {
       getters: true
     },
