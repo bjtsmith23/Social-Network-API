@@ -1,4 +1,29 @@
-# 18 NoSQL: Social Network API
+# 18 Social Network API
+
+
+  ## Table of Contents
+  - [Description](#Description)
+  - [Installations](#Installations)
+  - [License](#License)
+  - [Questions](#Questions)
+  - [Screenshot](#Screenshot)
+  ## Description
+  This Social Network Project utilizes Express, Mongoose ODM, and MongoDB in order to construct an API for a social network website application. After logging in, the user is able to share their thoughts, react to friends' thoughts, as well as create a list of friends.
+  ## Installations
+  npm install
+  
+  ## License
+  [![License Badge](https://img.shields.io/static/v1?label=License&message=GPL&color=purple&?style=plastic&link=https://choosealicense.com/licenses/gpl-3.0/)](https://choosealicense.com/licenses/gpl-3.0/)
+  </br>
+  This application uses GPL license. 
+
+  ## Questions 
+  If you have any questions or would like to contact me, you can [email](mailto:bjtsmith23@gmail.com) me
+  or check out my [GitHub](https://github.com/bjtsmith23).
+
+  ## Screenshot of Application
+
+  ![Screenshot of Social Network API](/images/screenshot.png)
 
 ## Your Task
 

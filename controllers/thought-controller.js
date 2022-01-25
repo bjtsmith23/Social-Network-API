@@ -71,6 +71,8 @@ const thoughtController = {
   // add a reaction to a thought
   addReaction(req, res) {
     //  TODO: add reaction to thought's reaction array
+    console.log(req.body);
+    console.log(req.params.thoughtId);
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       { $addToSet: { reactions: req.body } },
@@ -79,7 +81,7 @@ const thoughtController = {
       .then((reaction) =>
         !reaction 
           ? res.status(404).json({ message: 'No reaction  with this id!' })
-          : res.json({ message: `Reaction has been added`})
+          : res.json(reaction)
       )
       .catch((err) => res.status(500).json(err));
   },
@@ -88,14 +90,14 @@ const thoughtController = {
   removeReaction(req, res) {
     // TODO: remove reaction from thoughts
     Thought.findOneAndUpdate(
-      { _id: req.params.reactionId },
-      { $pull: { reactions: { reactionId: req.params.reactionId } } },
+      { _id: req.params.thoughtId },
+      { $pull: { reactions: { reactionId: req.params.thoughtId } } },
       { runValidators: true, new: true }
     )
       .then((reaction) =>
         !reaction
           ? res.status(404).json({ message: 'No reaction with this id!' })
-          : res.json({ message: `Reaction has been deleted!`})
+          : res.json(reaction)
       )
       .catch((err) => res.status(500).json(err));
   },

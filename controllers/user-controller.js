@@ -17,10 +17,12 @@ const userController = {
   // get single user by id
   getSingleUser(req, res) {
     // TODO: use .populate() to populate docs for friends and thoughts arrays
+    console.log("getSingleUser")
     User.findOne({ _id: req.params.userId })
-    // select _v what does it do 
+    // select _v what does it do ??
     .select("-__v")
-    .populate("friends, thoughts")
+    .populate("friends")
+    .populate("thoughts")
     .then((user) =>
       !user
         ? res.status(404).json({ message: 'No user with that ID' })
@@ -87,7 +89,10 @@ const userController = {
 
   // add friend to friend list
   addFriend(req, res) {
-    User.findOneAndUpdate({ _id: req.params.userId }, { $addToSet: { friends: req.params.friendId } }, { new: true })
+    User.findOneAndUpdate(
+      { _id: req.params.userId }, 
+      { $addToSet: { friends: req.params.friendId } },
+      { new: true })
       .then((dbUserData) => {
         if (!dbUserData) {
           return res.status(404).json({ message: 'No user with this id!' });
@@ -102,7 +107,11 @@ const userController = {
   
   // remove friend from friend list
   removeFriend(req, res) {
-    User.findOneAndUpdate({ _id: req.params.userId }, { $pull: { friends: req.params.friendId } }, { new: true })
+    User.findOneAndUpdate(
+      { _id: req.params.userId }, 
+      { $pull: { friends: req.params.friendId } },
+       { new: true }
+       )
       .then((dbUserData) => {
         if (!dbUserData) {
           return res.status(404).json({ message: 'No user with this id!' });

@@ -23,7 +23,9 @@ const thoughtSchema = new Schema(
       required: true
     },
     // TODO: add reactions
-    reactions: [reactionSchema],
+    reactions: [reactionSchema]
+  },
+  {
     // TODO: Add toJSON option
     toJSON: {
       getters: true
